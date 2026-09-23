@@ -1,0 +1,1 @@
+const router=require('express').Router();const c=require('../controllers/dashboardController');const{authenticate,allowRoles}=require('../middleware/auth');router.get('/summary',authenticate,allowRoles('admin','guard'),c.summary);router.get('/visitor-trend',authenticate,allowRoles('admin','guard'),c.visitorTrend);module.exports=router;
