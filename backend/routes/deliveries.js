@@ -1,0 +1,1 @@
+const router=require('express').Router();const c=require('../controllers/deliveryController');const{authenticate,allowRoles}=require('../middleware/auth');router.post('/',authenticate,allowRoles('admin','guard'),c.createDelivery);router.get('/',authenticate,c.listDeliveries);router.patch('/:id',authenticate,allowRoles('admin','guard'),c.updateDelivery);module.exports=router;
