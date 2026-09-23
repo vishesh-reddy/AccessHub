@@ -1,0 +1,1 @@
+const router=require('express').Router();const c=require('../controllers/parkingController');const{authenticate,allowRoles}=require('../middleware/auth');router.get('/',authenticate,c.listSlots);router.patch('/:id',authenticate,allowRoles('admin','guard'),c.updateSlot);module.exports=router;
