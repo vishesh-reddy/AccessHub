@@ -70,3 +70,51 @@ MySQL
 7. Open `http://localhost:5000`.
 
 Do not commit `.env` or `node_modules`.
+
+
+## System Architecture
+
+```mermaid
+flowchart LR
+    U[Resident / Guard / Admin] --> F[Frontend HTML CSS JavaScript]
+    F --> A[Express REST API]
+    A --> M[JWT Auth + Validation]
+    M --> C[Controllers]
+    C --> D[(MySQL)]
+    C --> Q[QR Generation / Verification]
+    C --> L[Access Logs]
+    C --> V[Visitor Management]
+    C --> P[Parking & Delivery]
+    D --> X[Dashboard Analytics]
+```
+
+## Visitor Workflow
+
+```mermaid
+sequenceDiagram
+    participant R as Resident
+    participant API as AccessHub API
+    participant DB as MySQL
+    participant G as Guard
+    R->>API: Create visitor pass
+    API->>DB: Store visitor details
+    API-->>R: Generate QR pass
+    G->>API: Scan / submit QR
+    API->>DB: Verify visitor
+    API-->>G: Valid / invalid result
+    G->>API: Check in visitor
+    API->>DB: Create access log
+    G->>API: Check out visitor
+    API->>DB: Update access log
+```
+
+## Core Modules
+
+| Module | Responsibility |
+|---|---|
+| Authentication | Registration, login, JWT authorization |
+| Visitor Management | Visitor passes, QR verification, entry/exit |
+| Security Desk | Check-in/out and access logs |
+| Delivery Management | Delivery records and status |
+| Parking | Slot tracking and utilization |
+| Dashboard | Operational summaries and analytics |
